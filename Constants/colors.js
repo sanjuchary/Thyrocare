@@ -8,6 +8,7 @@ export const Colors = {
 
   green: '#c0e863',
   green_100: '#A0CD46',
+  green_700: '#44b752',
 
   red: '#ff0000',
 
@@ -18,7 +19,9 @@ export const Colors = {
   black: '#000',
 
   gray_100: '#f6f7f7',
-
+  gray_200: '#D6D6D5',
   gray_300: '#afafaf',
+  gray_400: '#646464',
+
   gray_600: '#3a3551',
 };

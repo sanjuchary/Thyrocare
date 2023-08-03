@@ -16,12 +16,13 @@ import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm, Controller} from 'react-hook-form';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const RegisterPage = () => {
+  const navigation = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const [isSecureEntry2, setIsSecureEntry2] = useState(true);
   const RegisterFormSchema = z
@@ -68,9 +69,6 @@ const RegisterPage = () => {
         <LinearGradient
           colors={[Colors.black, Colors.gray_600]}
           style={styles.background}>
-          <View>
-            <AntDesign name="arrowleft" style={styles.BackIcon} />
-          </View>
           <View>
             <Text style={styles.HeaderText}>Register</Text>
             <Text style={styles.HeaderSmallText}>Create Your Account</Text>
@@ -209,15 +207,15 @@ const RegisterPage = () => {
               </Text>
             </View>
           </View>
-          <View style={styles.button}>
-            <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-              <Text style={styles.buttonText}>Register</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            onPress={handleSubmit(onSubmit)}
+            style={styles.button}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.SignUpTextContainer}>
           <Text style={styles.SignUpText}>I have an account?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
             <Text style={styles.RegisterText}> Log in</Text>
           </TouchableOpacity>
         </View>
@@ -249,7 +247,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     marginLeft: '5%',
-    marginTop: '15%',
+    marginTop: '20%',
   },
   HeaderSmallText: {
     color: Colors.gray_300,

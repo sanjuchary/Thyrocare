@@ -17,8 +17,11 @@ import {useForm, Controller} from 'react-hook-form';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import {useNavigation} from '@react-navigation/native';
 
 const ForgetPassword = () => {
+  const navigation = useNavigation();
+
   const RegisterFormSchema = z
     .object({
       email: z
@@ -50,9 +53,9 @@ const ForgetPassword = () => {
       <LinearGradient
         colors={[Colors.black, Colors.gray_600]}
         style={styles.background}>
-        <View>
+        <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
           <AntDesign name="arrowleft" style={styles.BackIcon} />
-        </View>
+        </TouchableOpacity>
         <View>
           <Text style={styles.HeaderText}>Forget Password</Text>
           <Text style={styles.HeaderSmallText}>
@@ -89,11 +92,9 @@ const ForgetPassword = () => {
           </View>
         </View>
       </View>
-      <View style={styles.button}>
-        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.buttonText}>Continue</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
+        <Text style={styles.buttonText}>Continue</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
