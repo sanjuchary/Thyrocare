@@ -9,6 +9,7 @@ import {
 import React, {useState} from 'react';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useNavigation} from '@react-navigation/native';
 
 import {useForm, Controller} from 'react-hook-form';
 
@@ -21,6 +22,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const LogInPage = () => {
+  const navigation = useNavigation();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -147,21 +149,20 @@ const LogInPage = () => {
               <Text style={styles.LightText}>Remember Me</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ForgotPassword')}>
             <Text style={styles.LightText}>Forgot Password</Text>
           </TouchableOpacity>
         </View>
-        <LinearGradient
-          colors={[Colors.green, Colors.green]}
+        <TouchableOpacity
+          onPress={handleSubmit(onSubmit)}
           style={styles.button}>
-          <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-        </LinearGradient>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.SignUpTextContainer}>
         <Text style={styles.SignUpText}>Don't have an account?</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.RegisterText}> Register</Text>
         </TouchableOpacity>
       </View>
@@ -186,8 +187,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     marginLeft: '4%',
-    // textAlign: 'center',
-    // alignSelf: 'center',
     marginTop: '18%',
   },
   HeaderSmallText: {
@@ -202,7 +201,6 @@ const styles = StyleSheet.create({
   },
   InputFieldContainer: {
     width: '90%',
-    // marginTop: '10%',
     display: 'flex',
   },
   InputFieldHolder: {
@@ -270,8 +268,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.green,
   },
-
   buttonText: {
     color: Colors.black,
     fontWeight: '500',
@@ -287,7 +285,6 @@ const styles = StyleSheet.create({
   },
   SignUpText: {
     color: Colors.black,
-    // shadowColor: Colors.black,
     fontWeight: '300',
     fontSize: 16,
     alignItems: 'center',
