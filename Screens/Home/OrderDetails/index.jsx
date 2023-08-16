@@ -5,21 +5,27 @@ import {
   TouchableOpacity,
   ScrollView,
   Modal,
+  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Colors} from '../../../Constants/colors';
 import {List} from '../PatientsArray';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useNavigation} from '@react-navigation/native';
 
 const OrderDetails = () => {
+  const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   return (
     <ScrollView style={styles.Container}>
       <Modal
         transparent={true}
         visible={showModal}
-        onRequestClose={() => setShowModal(false)}
-        animationType="slide">
+        onRequestClose={() => {
+          setShowModal(!showModal);
+        }}
+        animationType="fade">
+        <Pressable style={styles.bg} onPress={() => setShowModal(!showModal)} />
         <View style={styles.ModalContainer}>
           <View style={styles.ModalTextContainer}>
             <Text style={styles.ModalText}>
@@ -29,7 +35,9 @@ const OrderDetails = () => {
               <TouchableOpacity style={styles.ModalButtons}>
                 <Text style={styles.ModalButtonsText}>Yes</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.ModalButtons}>
+              <TouchableOpacity
+                style={styles.ModalButtons}
+                onPress={() => navigation.navigate('Arrive')}>
                 <Text style={styles.ModalButtonsText}>No</Text>
               </TouchableOpacity>
             </View>
@@ -40,7 +48,7 @@ const OrderDetails = () => {
         <TouchableOpacity
           style={styles.Box}
           key={item.id}
-          onPress={() => setShowModal(true)}>
+          onPress={() => setShowModal(!showModal)}>
           <View style={styles.BoxText}>
             <Text style={styles.BoxHeaderText}>{item.patient_number}</Text>
             <Text style={styles.AddressText}>{item.patient_token}</Text>
@@ -77,8 +85,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   Box: {
+    flex: 1,
     width: '90%',
-    height: 330,
     backgroundColor: Colors.gray_100,
     borderWidth: 2,
     borderColor: Colors.dark,
@@ -98,7 +106,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '800',
     color: Colors.green_100,
-    // marginBottom: '2%',
   },
   BodyText: {
     fontSize: 15,
@@ -116,17 +123,16 @@ const styles = StyleSheet.create({
   },
   CheckIcon: {
     fontSize: 25,
+    marginLeft: '5%',
   },
   OrderButton: {
     padding: '3%',
-    // marginBottom: '0%',
     marginTop: '10%',
     width: '100%',
     backgroundColor: Colors.gray_100,
     borderWidth: 2,
     borderColor: Colors.dark,
     borderRadius: 10,
-    // elevation: 8,
     display: 'flex',
     flexDirection: 'row',
     alignSelf: 'center',
@@ -140,20 +146,16 @@ const styles = StyleSheet.create({
   },
   ModalContainer: {
     alignSelf: 'center',
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
-    width: '92%',
-    // margin: '5%',
-    // marginHorizontal: '15%',
-    // padding: '20%',
-    // backgroundColor: Colors.gray_200,
+    width: '100%',
   },
   ModalTextContainer: {
     backgroundColor: Colors.green,
     borderWidth: 1,
     borderColor: Colors.dark,
     paddingVertical: '5%',
-    borderRadius: 20,
+    // borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 15,
@@ -183,6 +185,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: Colors.dark,
+  },
+  bg: {
+    height: '84%',
+    backgroundColor: Colors.gray_600,
+    opacity: 0.5,
   },
 });
 
