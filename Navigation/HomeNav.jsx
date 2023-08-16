@@ -2,8 +2,14 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {DashBoardScreen, OrderDetails, OrdersScreen} from '../Screens/Home';
 import {
+  ArrivedScreen,
+  DashBoardScreen,
+  OrderDetails,
+  OrdersScreen,
+} from '../Screens/Home';
+import {
+  CustomArriveHeader,
   CustomDashboardHeader,
   CustomOrderDetailHeader,
   CustomOrdersHeader,
@@ -25,7 +31,6 @@ const HomeNav = () => {
         <Stack.Screen
           name="Orders"
           component={OrdersScreen}
-          //   options={{headerShown: false}}
           options={{
             header: props => <CustomOrdersHeader {...props} />,
           }}
@@ -33,9 +38,16 @@ const HomeNav = () => {
         <Stack.Screen
           name="OrderDetails"
           component={OrderDetails}
-          //   options={{headerShown: false}}
           options={{
             header: props => <CustomOrderDetailHeader {...props} />,
+            tabBarVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="Arrive"
+          component={ArrivedScreen}
+          options={{
+            header: props => <CustomArriveHeader {...props} />,
             tabBarVisible: false,
           }}
         />

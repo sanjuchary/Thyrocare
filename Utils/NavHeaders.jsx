@@ -80,6 +80,32 @@ export const CustomOrderDetailHeader = ({navigation}) => (
   </LinearGradient>
 );
 
+export const CustomArriveHeader = ({navigation}) => (
+  <LinearGradient
+    style={styles.bgGreen}
+    colors={[Colors.green_100, Colors.green]}>
+    <View style={styles.OrderHeaderText}>
+      <TouchableOpacity onPressIn={() => navigation.navigate('OrderDetails')}>
+        <MaterialIcons
+          style={styles.BackIcon}
+          name="arrow-back-ios"
+          color={Colors.gray_600}
+        />
+      </TouchableOpacity>
+      <Text style={styles.OrderNavText}>Arrive</Text>
+      <TouchableOpacity
+        style={styles.NavButtons}
+        onPressIn={() => navigation.navigate('DashBoard')}>
+        <MaterialIcons
+          style={styles.UserIcon}
+          name="home"
+          color={Colors.gray_600}
+        />
+      </TouchableOpacity>
+    </View>
+  </LinearGradient>
+);
+
 const styles = StyleSheet.create({
   bgGreen: {
     width: '100%',
