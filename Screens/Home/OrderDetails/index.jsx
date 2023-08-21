@@ -37,7 +37,10 @@ const OrderDetails = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.ModalButtons}
-                onPress={() => navigation.navigate('Arrive')}>
+                onPress={() => {
+                  setShowModal(false);
+                  navigation.navigate('Arrive');
+                }}>
                 <Text style={styles.ModalButtonsText}>No</Text>
               </TouchableOpacity>
             </View>

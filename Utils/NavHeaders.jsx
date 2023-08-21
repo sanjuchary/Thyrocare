@@ -6,6 +6,7 @@ import {Colors} from '../Constants/colors';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
+import {List} from '../Screens/Home/PatientsArray';
 
 export const CustomDashboardHeader = ({navigation}) => (
   <LinearGradient
@@ -106,6 +107,60 @@ export const CustomArriveHeader = ({navigation}) => (
   </LinearGradient>
 );
 
+export const CustomOrderDescriptionHeader = ({navigation}) => (
+  <LinearGradient
+    style={styles.bgGreen}
+    colors={[Colors.green_100, Colors.green]}>
+    <View style={styles.OrderHeaderFlexText}>
+      <TouchableOpacity onPressIn={() => navigation.navigate('Arrive')}>
+        <MaterialIcons
+          style={styles.BackIcon}
+          name="arrow-back-ios"
+          color={Colors.gray_600}
+        />
+      </TouchableOpacity>
+      <Text style={styles.OrderNavText}>Order </Text>
+      <Text style={styles.OrderNavText}> #123456</Text>
+    </View>
+  </LinearGradient>
+);
+
+export const CustomEditBeneficiaryHeader = ({navigation}) => (
+  <LinearGradient
+    style={styles.bgGreen}
+    colors={[Colors.green_100, Colors.green]}>
+    <View style={styles.OrderHeaderFlexText}>
+      <TouchableOpacity
+        onPressIn={() => navigation.navigate('OrderDescription')}>
+        <MaterialIcons
+          style={styles.BackIcon}
+          name="arrow-back-ios"
+          color={Colors.gray_600}
+        />
+      </TouchableOpacity>
+      <Text style={styles.OrderNavText}> Edit Beneficiary</Text>
+    </View>
+  </LinearGradient>
+);
+
+export const CustomConfirmDetailsHeader = ({navigation}) => (
+  <LinearGradient
+    style={styles.bgGreen}
+    colors={[Colors.green_100, Colors.green]}>
+    <View style={styles.OrderHeaderFlexText}>
+      <TouchableOpacity
+        onPressIn={() => navigation.navigate('EditBeneficiary')}>
+        <MaterialIcons
+          style={styles.BackIcon}
+          name="arrow-back-ios"
+          color={Colors.gray_600}
+        />
+      </TouchableOpacity>
+      <Text style={styles.OrderNavText}> Confirm Details</Text>
+    </View>
+  </LinearGradient>
+);
+
 const styles = StyleSheet.create({
   bgGreen: {
     width: '100%',
@@ -161,13 +216,23 @@ const styles = StyleSheet.create({
     marginHorizontal: '4%',
     alignItems: 'center',
     alignSelf: 'center',
+    justifyContent: 'space-between',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   OrderNavText: {
     fontSize: 25,
     fontWeight: '500',
     color: Colors.dark,
+  },
+  OrderHeaderFlexText: {
+    width: '100%',
+    marginVertical: '4%',
+    marginHorizontal: '4%',
+    alignItems: 'center',
+    alignSelf: 'center',
+    // justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'row',
   },
 });
