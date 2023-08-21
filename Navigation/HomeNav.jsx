@@ -10,10 +10,19 @@ import {
 } from '../Screens/Home';
 import {
   CustomArriveHeader,
+  CustomConfirmDetailsHeader,
   CustomDashboardHeader,
+  CustomEditBeneficiaryHeader,
+  CustomOrderDescriptionHeader,
   CustomOrderDetailHeader,
   CustomOrdersHeader,
 } from '../Utils/NavHeaders';
+import {
+  ConfirmDetailsScreen,
+  EditBeneficiaryScreen,
+  OrderDescriptionScreen,
+} from '../Screens/Orders';
+import PatientVialsScreen from '../Screens/PatientVials/PatientVials';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +57,38 @@ const HomeNav = () => {
           component={ArrivedScreen}
           options={{
             header: props => <CustomArriveHeader {...props} />,
+            tabBarVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="OrderDescription"
+          component={OrderDescriptionScreen}
+          options={{
+            header: props => <CustomOrderDescriptionHeader {...props} />,
+            tabBarVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="EditBeneficiary"
+          component={EditBeneficiaryScreen}
+          options={{
+            header: props => <CustomEditBeneficiaryHeader {...props} />,
+            tabBarVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="ConfirmDetails"
+          component={ConfirmDetailsScreen}
+          options={{
+            header: props => <CustomConfirmDetailsHeader {...props} />,
+            tabBarVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="PatientVial"
+          component={PatientVialsScreen}
+          options={{
+            header: props => <CustomConfirmDetailsHeader {...props} />,
             tabBarVisible: false,
           }}
         />
