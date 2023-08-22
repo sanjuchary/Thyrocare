@@ -161,6 +161,23 @@ export const CustomConfirmDetailsHeader = ({navigation}) => (
   </LinearGradient>
 );
 
+export const CustomScanPatientHeader = ({navigation}) => (
+  <LinearGradient
+    style={styles.bgGreen}
+    colors={[Colors.green_100, Colors.green]}>
+    <View style={styles.OrderHeaderFlexText}>
+      <TouchableOpacity onPressIn={() => navigation.navigate('ConfirmDetails')}>
+        <MaterialIcons
+          style={styles.BackIcon}
+          name="arrow-back-ios"
+          color={Colors.gray_600}
+        />
+      </TouchableOpacity>
+      <Text style={styles.OrderNavText}> Scan Patient Vials</Text>
+    </View>
+  </LinearGradient>
+);
+
 const styles = StyleSheet.create({
   bgGreen: {
     width: '100%',

@@ -16,6 +16,7 @@ import {
   CustomOrderDescriptionHeader,
   CustomOrderDetailHeader,
   CustomOrdersHeader,
+  CustomScanPatientHeader,
 } from '../Utils/NavHeaders';
 import {
   ConfirmDetailsScreen,
@@ -23,6 +24,7 @@ import {
   OrderDescriptionScreen,
 } from '../Screens/Orders';
 import PatientVialsScreen from '../Screens/PatientVials/PatientVials';
+import {ScannerModal} from '../Modals';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,7 +90,15 @@ const HomeNav = () => {
           name="PatientVial"
           component={PatientVialsScreen}
           options={{
-            header: props => <CustomConfirmDetailsHeader {...props} />,
+            header: props => <CustomScanPatientHeader {...props} />,
+            tabBarVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="Modals"
+          component={ScannerModal}
+          options={{
+            header: props => <CustomScanPatientHeader {...props} />,
             tabBarVisible: false,
           }}
         />
