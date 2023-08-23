@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   Text,
@@ -20,6 +19,7 @@ import {Colors} from '../../../Constants/colors';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {API_URL} from '@env';
 
 const LogInPage = () => {
   const navigation = useNavigation();
@@ -52,12 +52,20 @@ const LogInPage = () => {
     },
   });
 
-  const onSubmit = data => {
-    console.log(data);
-    reset();
+  const onSubmit = async data => {
+    const response = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    console.log(result);
   };
-
-  console.log(errors);
 
   return (
     <View style={styles.container}>

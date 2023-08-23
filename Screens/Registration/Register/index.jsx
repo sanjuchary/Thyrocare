@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import {
   View,
   Text,
@@ -20,6 +19,7 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
+import {API_URL} from '@env';
 
 const RegisterPage = () => {
   const navigation = useNavigation();
@@ -36,10 +36,10 @@ const RegisterPage = () => {
         .string()
         .min(1, {message: 'Password is required'})
         .min(8, {message: 'Must be 8 or more characters long'}),
-      reenterpassword: z
-        .string()
-        .min(1, {message: 'Password is required'})
-        .min(8, {message: 'Must be 8 or more characters long'}),
+      // reenterpassword: z
+      //   .string()
+      //   .min(1, {message: 'Password is required'})
+      //   .min(8, {message: 'Must be 8 or more characters long'}),
     })
     .required();
 
@@ -54,13 +54,24 @@ const RegisterPage = () => {
       userName: '',
       email: '',
       password: '',
-      reenterpassword: '',
+      // reenterpassword: '',
     },
   });
 
-  const onSubmit = data => {
-    console.log(data);
-    reset();
+  const onSubmit = async data => {
+    const response = await fetch(`${API_URL}/register`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: data.userName,
+        email: data.email,
+        password: data.password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const result = await response.json();
+    console.log(result);
   };
 
   return (
@@ -168,7 +179,7 @@ const RegisterPage = () => {
               </Text>
             </View>
           </View>
-          <View style={styles.InputFieldContainer}>
+          {/* <View style={styles.InputFieldContainer}>
             <View style={styles.InputFieldHolder}>
               <View style={styles.RightInput}>
                 <MaterialCommunityIcons name="lock" style={styles.circleIcon} />
@@ -206,7 +217,7 @@ const RegisterPage = () => {
                 {errors.reenterpassword && errors.reenterpassword.message}
               </Text>
             </View>
-          </View>
+          </View> */}
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
             style={styles.button}>
