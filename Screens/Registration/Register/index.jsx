@@ -36,10 +36,10 @@ const RegisterPage = () => {
         .string()
         .min(1, {message: 'Password is required'})
         .min(8, {message: 'Must be 8 or more characters long'}),
-      // reenterpassword: z
-      //   .string()
-      //   .min(1, {message: 'Password is required'})
-      //   .min(8, {message: 'Must be 8 or more characters long'}),
+      reenterpassword: z
+        .string()
+        .min(1, {message: 'Password is required'})
+        .min(8, {message: 'Must be 8 or more characters long'}),
     })
     .required();
 
@@ -54,7 +54,7 @@ const RegisterPage = () => {
       userName: '',
       email: '',
       password: '',
-      // reenterpassword: '',
+      reenterpassword: '',
     },
   });
 
@@ -71,7 +71,8 @@ const RegisterPage = () => {
       },
     });
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
+    reset();
   };
 
   return (
@@ -179,7 +180,7 @@ const RegisterPage = () => {
               </Text>
             </View>
           </View>
-          {/* <View style={styles.InputFieldContainer}>
+          <View style={styles.InputFieldContainer}>
             <View style={styles.InputFieldHolder}>
               <View style={styles.RightInput}>
                 <MaterialCommunityIcons name="lock" style={styles.circleIcon} />
@@ -217,7 +218,7 @@ const RegisterPage = () => {
                 {errors.reenterpassword && errors.reenterpassword.message}
               </Text>
             </View>
-          </View> */}
+          </View>
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
             style={styles.button}>

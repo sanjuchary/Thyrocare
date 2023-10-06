@@ -24,7 +24,7 @@ import {
   OrderDescriptionScreen,
 } from '../Screens/Orders';
 import PatientVialsScreen from '../Screens/PatientVials/PatientVials';
-import {ScannerModal} from '../Modals';
+// import {ScannerModal} from '../Modals';
 
 const Stack = createNativeStackNavigator();
 
@@ -94,14 +94,14 @@ const HomeNav = () => {
             tabBarVisible: false,
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Modals"
           component={ScannerModal}
           options={{
             header: props => <CustomScanPatientHeader {...props} />,
             tabBarVisible: false,
           }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

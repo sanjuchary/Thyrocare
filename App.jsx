@@ -1,10 +1,15 @@
-import {ForgetPassword, LogInPage, RegisterPage} from './Screens/Registration';
-import RegisterNav from './Navigation/RegisterStack';
+/* eslint-disable react/react-in-jsx-scope */
+import {Provider} from 'react-redux';
+import store from './redux/store';
+import MainNavigation from './Navigation/MainNavigation';
 import HomeNav from './Navigation/HomeNav';
 
 const App = () => {
-  const user = false;
-  return user ? <HomeNav /> : <RegisterNav />;
+  return (
+    <Provider store={store}>
+      <MainNavigation />
+    </Provider>
+  );
 };
 
 export default App;

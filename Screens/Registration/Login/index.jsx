@@ -20,9 +20,14 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {API_URL} from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SET_TOKEN} from '../../../redux/reducers/userReducers';
+import {useDispatch} from 'react-redux';
+import axios from 'axios';
 
 const LogInPage = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -53,18 +58,20 @@ const LogInPage = () => {
   });
 
   const onSubmit = async data => {
-    const response = await fetch(`${API_URL}/login`, {
-      method: 'POST',
-      body: JSON.stringify({
+    try {
+      const response = await axios.post(`${API_URL}/login`, {
         email: data.email,
         password: data.password,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const result = await response.json();
-    console.log(result);
+      });
+      await AsyncStorage.setItem('accessToken', response.data.accessToken);
+      await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+      const value = await AsyncStorage.getItem('accessToken');
+      dispatch(SET_TOKEN(value));
+      // console.log(result);
+    } catch (err) {
+      console.log(err);
+    }
+    reset();
   };
 
   return (
@@ -227,6 +234,7 @@ const styles = StyleSheet.create({
   InputText: {
     fontSize: 15,
     color: Colors.black,
+    width: '100%',
   },
   RightInput: {
     width: '90%',

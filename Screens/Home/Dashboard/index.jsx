@@ -13,9 +13,28 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {REMOVE_TOKEN} from '../../../redux/reducers/userReducers';
+import {API_URL} from '@env';
+import axiosInstance from '../../../libs/axios';
 
 const DashBoardScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const handleSubmit = async () => {
+    try {
+      const response = await axiosInstance(`${API_URL}/logout`);
+      if (response.status !== 200) {
+        return console.log('error');
+      }
+      await AsyncStorage.removeItem('accessToken');
+      await AsyncStorage.removeItem('refreshToken');
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(REMOVE_TOKEN());
+  };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.TopContainer}>
@@ -71,7 +90,7 @@ const DashBoardScreen = () => {
           <MaterialIcons name="video-collection" style={styles.circleIcon} />
           <Text style={styles.OrderText}>Video</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.OtherBox}>
+        <TouchableOpacity style={styles.OtherBox} onPress={handleSubmit}>
           <MaterialIcons name="logout" style={styles.circleIcon} />
           <Text style={styles.OrderText}>Logout</Text>
         </TouchableOpacity>
