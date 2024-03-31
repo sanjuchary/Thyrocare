@@ -24,6 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SET_TOKEN} from '../../../redux/reducers/userReducers';
 import {useDispatch} from 'react-redux';
 import axios from 'axios';
+import {login} from '../../../redux/actions/auth';
 
 const LogInPage = () => {
   const navigation = useNavigation();
@@ -58,20 +59,22 @@ const LogInPage = () => {
   });
 
   const onSubmit = async data => {
-    try {
-      const response = await axios.post(`${API_URL}/login`, {
-        email: data.email,
-        password: data.password,
-      });
-      await AsyncStorage.setItem('accessToken', response.data.accessToken);
-      await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
-      const value = await AsyncStorage.getItem('accessToken');
-      dispatch(SET_TOKEN(value));
-      // console.log(result);
-    } catch (err) {
-      console.log(err);
-    }
-    reset();
+    // try {
+    //   const response = await axios.post(`${API_URL}/login`, {
+    //     email: data.email,
+    //     password: data.password,
+    //   });
+    //   await AsyncStorage.setItem('accessToken', response.data.accessToken);
+    //   await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+    //   const value = await AsyncStorage.getItem('accessToken');
+    //   dispatch(SET_TOKEN(value));
+    //   // console.log(result);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // reset();
+    console.log(data);
+    dispatch(login({email: data.email, password: data.password}));
   };
 
   return (

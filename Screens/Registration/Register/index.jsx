@@ -19,10 +19,12 @@ import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
-import {API_URL} from '@env';
+import {useDispatch} from 'react-redux';
+import {register} from '../../../redux/actions/auth';
 
 const RegisterPage = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const [isSecureEntry2, setIsSecureEntry2] = useState(true);
   const RegisterFormSchema = z
@@ -59,20 +61,36 @@ const RegisterPage = () => {
   });
 
   const onSubmit = async data => {
-    const response = await fetch(`${API_URL}/register`, {
-      method: 'POST',
-      body: JSON.stringify({
-        name: data.userName,
-        email: data.email,
-        password: data.password,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const result = await response.json();
-    // console.log(result);
-    reset();
+    // const response = await fetch(`${API_URL}/register`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     name: data.userName,
+    //     email: data.email,
+    //     password: data.password,
+    //   }),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+    // const result = await response.json();
+    // // console.log(result);
+    // reset();
+    // dispatch(register({email: data.email, password: data.password}));
+    // console.log(data);
+    dispatch(
+      register(
+        {
+          firstName: 'sanj',
+          lastName: 'sanj',
+          email: data.email,
+          password: data.password,
+          phoneExt: '+91',
+          phoneNumber: '12345',
+          address: 'sanjay 43-12/1',
+        },
+        navigation,
+      ),
+    );
   };
 
   return (

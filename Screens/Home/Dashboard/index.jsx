@@ -18,22 +18,26 @@ import {useDispatch, useSelector} from 'react-redux';
 import {REMOVE_TOKEN} from '../../../redux/reducers/userReducers';
 import {API_URL} from '@env';
 import axiosInstance from '../../../libs/axios';
+import {logout} from '../../../redux/actions/auth';
 
 const DashBoardScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const token = useSelector(state => state.auth.token);
   const handleSubmit = async () => {
-    try {
-      const response = await axiosInstance(`${API_URL}/logout`);
-      if (response.status !== 200) {
-        return console.log('error');
-      }
-      await AsyncStorage.removeItem('accessToken');
-      await AsyncStorage.removeItem('refreshToken');
-    } catch (err) {
-      console.log(err);
-    }
-    dispatch(REMOVE_TOKEN());
+    // try {
+    //   const response = await axiosInstance(`${API_URL}/logout`);
+    //   if (response.status !== 200) {
+    //     return console.log('error');
+    //   }
+    //   await AsyncStorage.removeItem('accessToken');
+    //   await AsyncStorage.removeItem('refreshToken');
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // dispatch(REMOVE_TOKEN());
+    dispatch(logout(token));
   };
   return (
     <ScrollView style={styles.container}>
